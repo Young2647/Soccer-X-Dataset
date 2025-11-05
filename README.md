@@ -60,7 +60,7 @@ After getting the dataset, your dataset folder should be like this
 
 run the following code to generate the training data pkl.
 ```shell
-python ./data/make_pose_data_new.py --data_root path/to/your/dataset --export_path ./data/pkls/your_dataset_name.pkl
+python ./data/make_pose_data_new.py --data_root path/to/your/dataset/clip --export_path ./data/pkls/your_dataset_name.pkl
 ```
 
 ### 3. Run training code
@@ -73,7 +73,7 @@ python train.py --name your_train_exp_name --config ./config/soccer_train.json -
 Similarly as training the motion diffusion model, first generate the training data pkl:
 ```shell
 cd ./trajectory_generation_part
-python ./data/make_data_traj.py --data_root path/to/your/dataset --export_path ./data/pkls/your_dataset_name.pkl
+python ./data/make_data_traj.py --data_root path/to/your/dataset/clip --export_path ./data/pkls/your_dataset_name.pkl
 ```
 Then run the following code to train trajectory generation model:
 ```shell
