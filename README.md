@@ -27,12 +27,59 @@
 
 ## TODO
 - [ ] Release code and unity demo.
+  - ✅ Release training code.
 - ✅ Release whole dataset.
 
 ## 📁 Dataset
-For datasets, please fill out this [form](./assets/license.pdf) and send an email to apply for license. We will repley in one week. 
+For datasets, please fill out this [form](./assets/license.pdf) and send an email to apply for license. We will reply in one week. 
 
+## :computer: Instructions
+###  1. Set up environment
+#### 1.1 Create environment
+```shell
+conda env create -f smgdiff.yaml
+conda activate smgdiff
+```
+#### 1.2 Install SMPL model
+Download [SMPL model](https://smpl.is.tue.mpg.de/download.php)(female/male, 10 shape PCs) and [SMPLify model](https://smplify.is.tue.mpg.de/download.php)(neutral model), and extract folder and put pkls here:
+- smpl_models
+    - smpl
+        - SMPL_FEMALE.pkl
+        - SMPL_MALE.pkl
+        - SMPL_NEUTRAL.pkl
 
+### 2. Make Soccer Data
+After getting the dataset, your dataset folder should be like this
+- clip
+  - Part1
+  - Part2
+  - ...
+  - Part10
+- code
+  - ...
+
+run the following code to generate the training data pkl.
+```shell
+python ./data/make_pose_data_new.py --data_root path/to/your/dataset --export_path ./data/pkls/your_dataset_name.pkl
+```
+
+### 3. Run training code
+To train your model, run:
+```shell
+python train.py --name your_train_exp_name --config ./config/soccer_train.json -i ./data/pkls/your_dataset_name.pkl
+```
+
+### 4. Trajectory generation Part
+Similarly as training the motion diffusion model, first generate the training data pkl:
+```shell
+cd ./trajectory_generation_part
+python ./data/make_data_traj.py --data_root path/to/your/dataset --export_path ./data/pkls/your_dataset_name.pkl
+```
+Then run the following code to train trajectory generation model:
+```shell
+cd ./trajectory_generation_part
+python ./train.py --name your_train_exp_name --dataset_path ../data/pkls/your_dataset_name.pkl --save_path ./checkpoints
+```
 
 <!-- ## 📖 Citation -->
 ## 📖 Citation
